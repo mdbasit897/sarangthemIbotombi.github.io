@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dr. Sarangthem Ibotombi Singh - Assistant Professor, Computer Science & Engineering, Tezpur University">
+    <title>Dr. Sarangthem Ibotombi Singh, Department of Computer Science and Engineering, Tezpur University</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/sis.jpg">
+    <link rel="icon" type="image/svg+xml" href="./assets/images/sis.jpg">
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Nothing OS inspired fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== NOTHING OS DESIGN SYSTEM ===== */
+        :root {
+            /* Nothing OS Color Palette */
+            --color-primary: #000000;
+            --color-secondary: #666666;
+            --color-tertiary: #999999;
+            --color-accent: #FF6B35;
+            --color-success: #00D4AA;
+            --color-warning: #FFB800;
+            --color-error: #FF5757;
+
+            /* Z-INDEX VARIABLES */
+            --z-background: -1;
+            --z-content: 1;
+            --z-elevated: 10;
+            --z-dropdown: 100;
+            --z-sticky: 200;
+            --z-modal: 1000;
+            --z-notification: 2000;
+            --z-tooltip: 3000;
+
+            /* Nothing OS Backgrounds */
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #F8F8F8;
+            --bg-tertiary: #F0F0F0;
+            --bg-overlay: rgba(255, 255, 255, 0.8);
+            --bg-glass: rgba(255, 255, 255, 0.1);
+
+            /* Dark mode */
+            --bg-primary-dark: #000000;
+            --bg-secondary-dark: #0A0A0A;
+            --bg-tertiary-dark: #111111;
+            --color-primary-dark: #FFFFFF;
+            --color-secondary-dark: #CCCCCC;
+            --bg-overlay-dark: rgba(0, 0, 0, 0.8);
+            --bg-glass-dark: rgba(0, 0, 0, 0.1);
+
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Spacing (Nothing OS grid system) */
+            --space-unit: 8px;
+            --space-xs: calc(var(--space-unit) * 1);
+            --space-sm: calc(var(--space-unit) * 2);
+            --space-md: calc(var(--space-unit) * 3);
+            --space-lg: calc(var(--space-unit) * 4);
+            --space-xl: calc(var(--space-unit) * 6);
+            --space-2xl: calc(var(--space-unit) * 8);
+            --space-3xl: calc(var(--space-unit) * 12);
+            --space-4xl: calc(var(--space-unit) * 16);
+
+            /* Border radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 50%;
+
+            /* Animations */
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+            /* Glass morphism */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+
+            /* Dot matrix pattern */
+            --dot-size: 2px;
+            --dot-spacing: 20px;
+            --dot-color: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --bg-tertiary: var(--bg-tertiary-dark);
+            --color-primary: var(--color-primary-dark);
+            --color-secondary: var(--color-secondary-dark);
+            --bg-overlay: var(--bg-overlay-dark);
+            --bg-glass: var(--bg-glass-dark);
+            --dot-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(0, 0, 0, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--color-primary);
+            background: var(--bg-primary);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ===== DOT MATRIX BACKGROUND ===== */
+        .dot-matrix {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: var(--z-background);
+            background-image:
+                radial-gradient(circle at var(--dot-size), var(--dot-color) var(--dot-size), transparent var(--dot-size));
+            background-size: var(--dot-spacing) var(--dot-spacing);
+            animation: dotShift 20s linear infinite;
+        }
+
+        @keyframes dotShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--dot-spacing), var(--dot-spacing)); }
+        }
+
+        /* ===== GLASS MORPHISM COMPONENTS ===== */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* ===== FIXED NAVBAR STYLES ===== */
+        .navbar {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: var(--z-sticky) !important;
+            padding: var(--space-md) var(--space-xl);
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            height: 70px; /* Reduced height */
+            display: flex;
+            align-items: center;
+            isolation: isolate;
+            will-change: background-color, backdrop-filter;
+        }
+
+        [data-theme="dark"] .navbar {
+            background: rgba(0, 0, 0, 0.95) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98) !important;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.98) !important;
+            box-shadow: 0 2px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .nav-brand {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-primary);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--space-xl); /* Reduced gap for better spacing */
+            align-items: center;
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--color-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-primary);
+            background: var(--bg-secondary);
+        }
+
+        /* FIXED: Centered dot positioning for all nav items */
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            background: var(--color-accent);
+            border-radius: var(--radius-full);
+        }
+
+        .theme-toggle {
+            width: 48px;
+            height: 28px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-full);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 22px;
+            height: 22px;
+            background: var(--color-primary);
+            border-radius: var(--radius-full);
+            transition: var(--transition-bounce);
+        }
+
+        [data-theme="dark"] .theme-toggle::before {
+            transform: translateX(20px);
+        }
+
+        /* ===== MAIN CONTENT SPACING FIXES ===== */
+        .main-content {
+            padding-top: 70px; /* Reduced to match navbar height */
+        }
+
+        /* ===== HERO SECTION WITH REDUCED SPACING ===== */
+        .hero {
+            min-height: calc(100vh - 70px); /* Reduced to match navbar */
+            display: flex;
+            align-items: center;
+            padding: var(--space-lg) var(--space-xl); /* Reduced top padding */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(135deg, transparent 0%, var(--color-accent) 0.1%, transparent 0.2%),
+                linear-gradient(45deg, transparent 0%, var(--color-success) 0.1%, transparent 0.2%);
+            opacity: 0.1;
+            animation: gradientShift 15s ease infinite;
+            z-index: var(--z-background);
+            will-change: transform;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(100px, -50px) rotate(120deg); }
+            66% { transform: translate(-50px, 100px) rotate(240deg); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: var(--space-4xl);
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 100%;
+            overflow: visible; /* Changed from hidden to visible */
+        }
+
+        /* FIXED: Name display with proper text rendering */
+        .hero-title {
+            font-size: clamp(1.8rem, 4.5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            /* Removed gradient text that was causing issues */
+            color: var(--color-primary) !important;
+            letter-spacing: -1px;
+            /* Removed white-space: nowrap to allow wrapping */
+            display: block;
+            width: 100%;
+            word-wrap: break-word;
+            -webkit-text-fill-color: initial; /* Reset webkit fill */
+            background: none; /* Remove background gradient */
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+            margin-bottom: var(--space-md);
+            font-weight: 600;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--color-secondary);
+            margin-bottom: var(--space-2xl);
+            line-height: 1.7;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-lg);
+            flex-wrap: wrap;
+        }
+
+        .hero-profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl);
+            position: relative;
+            overflow: hidden;
+            z-index: var(--z-content);
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+        }
+
+        /* ===== PROFILE IMAGE STYLES ===== */
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 3px solid var(--bg-primary);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-xl);
+            transition: var(--transition);
+        }
+
+        .profile-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Dark mode adjustments */
+        [data-theme="dark"] .profile-image {
+            border-color: var(--bg-secondary);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Fallback for when image doesn't load */
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-success) 100%);
+            z-index: -1;
+        }
+
+        /* ===== NOTHING OS BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            font-size: 16px;
+            z-index: var(--z-content);
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(255, 107, 53, 0.39);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(255, 107, 53, 0.5);
+            z-index: var(--z-elevated);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--color-primary);
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+            z-index: var(--z-elevated);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--color-secondary);
+            border: 1px solid var(--color-tertiary);
+        }
+
+        .btn-ghost:hover {
+            background: var(--bg-secondary);
+            color: var(--color-primary);
+            border-color: var(--color-secondary);
+        }
+
+        /* ===== SECTION LAYOUTS ===== */
+        .section {
+            min-height: calc(100vh - 70px); /* Adjusted for new navbar height */
+            padding: var(--space-2xl) var(--space-xl); /* Reduced padding */
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-4xl);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--color-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: var(--color-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== CARDS (Nothing OS Style) ===== */
+        .card {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            border: 1px solid var(--bg-tertiary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--color-accent);
+            z-index: var(--z-elevated);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-accent), var(--color-success));
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: var(--space-4xl);
+            align-items: start;
+        }
+
+        .about-content {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--color-secondary);
+        }
+
+        .about-content p {
+            margin-bottom: var(--space-lg);
+        }
+
+        .about-stats {
+            display: grid;
+            gap: var(--space-lg);
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            display: block;
+            font-family: var(--font-mono);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--color-secondary);
+            margin-top: var(--space-sm);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-4xl);
+        }
+
+        .contact-info {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xl);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .contact-details h4 {
+            font-weight: 600;
+            margin-bottom: var(--space-xs);
+            color: var(--color-primary);
+        }
+
+        .contact-details a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* ===== PAGE TRANSITION OVERLAY ===== */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: var(--z-modal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .page-transition.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .transition-loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid var(--bg-tertiary);
+            border-top: 3px solid var(--color-accent);
+            border-radius: var(--radius-full);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-container,
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-2xl);
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: var(--space-md); /* Reduced gap on mobile */
+            }
+
+            .navbar {
+                padding: var(--space-sm) var(--space-lg);
+                height: 60px; /* Smaller height on mobile */
+            }
+
+            .main-content {
+                padding-top: 60px; /* Match mobile navbar height */
+            }
+
+            .hero {
+                min-height: calc(100vh - 60px);
+                padding: var(--space-lg) var(--space-lg);
+            }
+
+            .section {
+                min-height: calc(100vh - 60px);
+                padding: var(--space-lg) var(--space-lg);
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .profile-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            /* FIXED: Better mobile title sizing */
+            .hero-title {
+                font-size: clamp(1.4rem, 6vw, 2.8rem);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                gap: var(--space-sm);
+            }
+
+            .hero-title {
+                font-size: clamp(1.2rem, 7vw, 2.2rem);
+                line-height: 1.2;
+            }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-in:nth-child(1) { animation-delay: 0ms; }
+        .animate-in:nth-child(2) { animation-delay: 100ms; }
+        .animate-in:nth-child(3) { animation-delay: 200ms; }
+        .animate-in:nth-child(4) { animation-delay: 300ms; }
+
+        /* Hide all sections initially except home */
+        .section:not(.active) {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Performance optimizations */
+        .hero::before,
+        .dot-matrix,
+        .card,
+        .btn {
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .navbar.scrolled,
+        .page-transition.active,
+        .card:hover,
+        .btn:hover {
+            will-change: transform, opacity;
+        }
+
+        /* Browser-specific fixes */
+        @supports (-webkit-backdrop-filter: blur(20px)) {
+            .glass,
+            .profile-card,
+            .navbar.scrolled {
+                -webkit-backdrop-filter: blur(20px);
+            }
+        }
+
+        /* ===== PUBLICATION MODALS ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: var(--z-modal);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: var(--radius-lg);
+            padding: var(--space-2xl);
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+            border-bottom: 2px solid var(--bg-tertiary);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            background: var(--bg-secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--color-secondary);
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: var(--color-error);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            color: var(--color-secondary);
+            line-height: 1.6;
+        }
+
+        .doi-content {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            font-family: var(--font-mono);
+            word-break: break-all;
+            margin-bottom: var(--space-lg);
+        }
+
+        .bibtex-content {
+            background: var(--bg-secondary);
+            padding: var(--space-lg);
+            border-radius: var(--radius-md);
+            font-family: var(--font-mono);
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+
+        .copy-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .copy-button:hover {
+            background: var(--color-success);
+            transform: translateY(-2px);
+        }
+
+        .copy-button.copied {
+            background: var(--color-success);
+        }
+
+        /* ===== HAMBURGER MENU (MOBILE) ===== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+            z-index: calc(var(--z-sticky) + 1);
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--color-primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ===== IMPROVED MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            /* Show hamburger on mobile */
+            .hamburger {
+                display: flex;
+            }
+
+            /* Hide default nav menu, show on toggle */
+            .nav-menu {
+                position: fixed;
+                top: 60px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 60px);
+                background: var(--bg-primary);
+                flex-direction: column;
+                padding: var(--space-2xl);
+                gap: var(--space-lg);
+                transition: left 0.3s ease;
+                z-index: var(--z-dropdown);
+                border-top: 1px solid var(--bg-tertiary);
+                overflow-y: auto;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                width: 100%;
+                padding: var(--space-md);
+                font-size: 18px;
+                text-align: center;
+                justify-content: center;
+            }
+
+            /* Better touch targets */
+            .btn {
+                min-height: 48px;
+            }
+
+            /* Modal improvements */
+            .modal-content {
+                width: 95%;
+                max-height: 90vh;
+                padding: var(--space-lg);
+            }
+
+            /* Footer mobile */
+            footer > div > div:first-child {
+                grid-template-columns: 1fr !important;
+                gap: 32px !important;
+                text-align: center;
+            }
+
+            /* Contact grid */
+            .contact-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            /* Stack publication buttons */
+            .card [style*="display: flex; gap: 16px"] {
+                flex-direction: column !important;
+            }
+
+            .card [style*="display: flex; gap: 16px"] button {
+                width: 100% !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Dot Matrix Background -->
+    <div class="dot-matrix"></div>
+
+    <!-- Page Transition Overlay -->
+    <div class="page-transition" id="pageTransition">
+        <div class="transition-loader"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Hamburger Menu Button -->
+            <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#teaching" class="nav-link" data-page="teaching">Teaching</a></li>
+                <li><a href="#research" class="nav-link" data-page="research">Research</a></li>
+                <li><a href="#publications" class="nav-link" data-page="publications">Publications</a></li>
+                <li><a href="#students" class="nav-link" data-page="students">Students</a></li>
+<!--                <li><a href="#news" class="nav-link" data-page="news">News</a></li>-->
+                <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+
+            <div class="theme-toggle" id="themeToggle" title="Toggle dark mode"></div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="mainContent" class="main-content">
+
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <!-- Hero -->
+            <div class="hero">
+                <div class="hero-container">
+                    <div class="hero-content">
+                        <div class="hero-title-container">
+                            <h1 class="hero-title">Dr. Sarangthem Ibotombi Singh</h1>
+                        </div>
+                        <p class="hero-subtitle">Assistant Professor</p>
+                        <p class="hero-description">
+                            Department of Computer Science & Engineering at Tezpur University.
+                            Pioneering research in Trust & Reputation Systems, Data Mining, and Web Services
+                            with a focus on real-world applications and innovative solutions.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#research" class="btn btn-primary" data-page="research">
+                                <span>Explore Research</span>
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                                    <path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                                </svg>
+                            </a>
+                            <a href="./assets/documents/sis_cv.pdf" class="btn btn-secondary" download>
+                                <span>Download CV</span>
+                                <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293V6.5z"/>
+                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/>
+                                </svg>
+                            </a>
+                            <a href="#contact" class="btn btn-ghost" data-page="contact">
+                                <span>Get in Touch</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hero-profile">
+                        <div class="profile-card">
+                            <div class="profile-image">
+                                <img src="./assets/images/sis.jpg"
+                                     alt="Dr. S.I. Singh"
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius-xl);">
+                            </div>
+                            <div class="profile-info">
+                                <div style="font-size: 1.25rem; font-weight: 600; color: var(--color-primary); margin-bottom: 8px;">Professor</div>
+                                <div style="color: var(--color-secondary); margin-bottom: 4px;">Computer Science & Engineering</div>
+                                <div style="color: var(--color-tertiary); font-size: 0.875rem;">Tezpur University</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 class="section-title">About</h2>
+                    <p class="section-description">
+                        Dedicated to advancing computer science education and research with a passion for
+                        innovative solutions and academic excellence.
+                    </p>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-content">
+                        <p>
+                            I am currently serving as an Assistant Professor in the Department of Computer Science & Engineering
+                            at Tezpur University, where I have the privilege of teaching and mentoring students across multiple programs
+                            including Master of Computer Applications (MCA), Master of Technology (M.Tech, Information Technology),
+                            and Bachelor of Technology (B.Tech CSE).
+                        </p>
+                        <p>
+                            I am currently serving as an Assistant Professor with over 30 years of teaching experience in the Department of
+                            Computer Science & Engineering at Tezpur University, Assam, India, where I have dedicated my academic career to
+                            advancing knowledge in trust models, software engineering, and machine learning applications. My research explores
+                            innovative approaches in trust and reputation mechanisms using advanced techniques like Markov models and Gaussian
+                            processes, while my recent work has expanded into the evolving landscape of software documentation, release management,
+                            and SaaS technologies.
+                        </p>
+                        <p>
+                            I have also contributed to machine learning applications for performance prediction, while
+                            actively serving on program committees for numerous national workshops and conferences including the North-East
+                            ISI-TU Spring School on Algorithms and various workshops on network security, malware threats, and machine intelligence
+                            sponsored by DIT, UGC, and CSIR, and I remain committed to bridging theoretical research with practical applications as
+                            I continue to explore how dynamic technologies shape software development practices and contribute to innovative solutions
+                            in the ever-evolving field of computer science.
+                        </p>
+                    </div>
+
+                    <div class="about-stats">
+                        <div class="stat-card">
+                            <span class="stat-number">25+</span>
+                            <div class="stat-label">Publications</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">15+</span>
+                            <div class="stat-label">Students Mentored</div>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">30+</span>
+                            <div class="stat-label">Teaching Experience</div>
+                        </div>
+<!--                        <div class="stat-card">-->
+<!--                            <span class="stat-number">5+</span>-->
+<!--                            <div class="stat-label">Research Projects</div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section (Always visible on home) -->
+            <div class="section-container" style="margin-top: 80px;">
+                <div class="section-header">
+                    <h2 class="section-title">Contact</h2>
+                    <p class="section-description">
+                        Get in touch for collaborations, research opportunities, or academic inquiries.
+                    </p>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 32px; color: var(--color-primary);">Get in Touch</h3>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:sis@tezu.ernet.in">sis@tezu.ernet.in</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-details">
+                                <h4>Office</h4>
+                                <p style="color: var(--color-secondary); line-height: 1.6;">
+                                    Department of Computer Science & Engineering<br>
+                                    Tezpur University<br>
+                                    Napaam - 784 028, Tezpur<br>
+                                    Assam, INDIA
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h4>Phone</h4>
+                                <p style="color: var(--color-secondary);">+91-3712-275106 (Office)</p>
+                                <p style="color: var(--color-secondary);">+91-3712-273464 (Residence)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-info">
+                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 32px; color: var(--color-primary);">Office Hours</h3>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">🕒</div>
+                            <div class="contact-details">
+                                <h4>Regular Hours</h4>
+                                <p style="color: var(--color-secondary); line-height: 1.6;">
+                                    Monday - Friday: 10:00 AM - 5:00 PM<br>
+                                    <em>Please email to schedule an appointment</em>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">👥</div>
+                            <div class="contact-details">
+                                <h4>Student Hours</h4>
+                                <p style="color: var(--color-secondary); line-height: 1.6;">
+                                    Tuesday & Thursday: 2:00 PM - 4:00 PM<br>
+                                    <em>Drop-in hours for current students</em>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">🔬</div>
+                            <div class="contact-details">
+                                <h4>Research Meetings</h4>
+                                <p style="color: var(--color-secondary); line-height: 1.6;">
+                                    By appointment<br>
+                                    <a href="mailto:sis@tezu.ernet.in">Email for scheduling</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Placeholder sections for other pages (will be loaded dynamically) -->
+        <section id="teaching" class="section"></section>
+        <section id="research" class="section"></section>
+        <section id="publications" class="section"></section>
+        <section id="students" class="section"></section>
+<!--        <section id="news" class="section"></section>-->
+        <section id="contact" class="section"></section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--bg-secondary); border-top: 1px solid var(--bg-tertiary); padding: 48px 24px 32px; margin-top: 80px;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+
+            <!-- Built With & Hosted On Section -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 48px; margin-bottom: 48px;">
+                <!-- Built With -->
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 600; color: var(--color-primary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Built With</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <!-- HTML5 -->
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--color-secondary); font-size: 14px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#E34F26">
+                                <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/>
+                            </svg>
+                            <span>HTML5</span>
+                        </div>
+
+                        <!-- CSS3 -->
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--color-secondary); font-size: 14px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#1572B6">
+                                <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/>
+                            </svg>
+                            <span>CSS3</span>
+                        </div>
+
+                        <!-- JavaScript -->
+                        <div style="display: flex; align-items: center; gap: 12px; color: var(--color-secondary); font-size: 14px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#F7DF1E">
+                                <path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/>
+                            </svg>
+                            <span>JavaScript (ES6+)</span>
+                        </div>
+
+                        <!-- Google Fonts -->
+                        <a href="https://fonts.google.com/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 12px; color: var(--color-secondary); text-decoration: none; transition: var(--transition); font-size: 14px;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#4285F4">
+                                <path d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 110-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0012.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z"/>
+                            </svg>
+                            <span>Google Fonts</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 600; color: var(--color-primary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Hosted On</h4>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 12px; color: var(--color-secondary); text-decoration: none; transition: var(--transition); font-size: 14px;">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                            </svg>
+                            <span>GitHub Pages</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="font-size: 14px; font-weight: 600; color: var(--color-primary); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Designed & Managed By</h4>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <!-- Clickable name with hover effect -->
+                        <a href="https://mdbasit.me" target="_blank" rel="noopener noreferrer"
+                           style="color: var(--color-primary); text-decoration: none; transition: var(--transition); font-size: 14px; font-weight: 500;"
+                           onmouseover="this.style.color='var(--color-accent)'"
+                           onmouseout="this.style.color='var(--color-primary)'">
+                            Md Basit Azam
+                        </a>
+
+                        <!-- Email -->
+                        <a href="mailto:mdbasit@tezu.ernet.in"
+                           style="color: var(--color-accent); text-decoration: none; transition: var(--transition); font-size: 14px;">
+                            mdbasit@tezu.ernet.in
+                        </a>
+
+                        <!-- Website -->
+                        <a href="https://mdbasit.me" target="_blank" rel="noopener noreferrer"
+                           style="color: var(--color-accent); text-decoration: none; transition: var(--transition); font-size: 14px;">
+                            mdbasit.me
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div style="border-top: 1px solid var(--bg-tertiary); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <p style="color: var(--color-secondary); margin: 0; font-size: 14px;">
+                    © <span id="currentYear"></span> Dr. Sarangthem Ibotombi Singh. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Auto-update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+    <script src="./js/app.js"></script>
+
+    <!-- Initialize the application -->
+    <script>
+        // Ensure the app initializes after DOM is fully loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('🎯 DOM fully loaded, checking initialization...');
+                if (!window.academicSite) {
+                    console.log('🚀 Manually initializing academic site...');
+                    window.academicSite = new NothingOSAcademicSite();
+                }
+            });
+        } else {
+            // DOM already loaded
+            if (!window.academicSite) {
+                console.log('🚀 Initializing academic site immediately...');
+                window.academicSite = new NothingOSAcademicSite();
+            }
+        }
+
+        // Debug: Add click listener to verify navigation is working
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.nav-link, [data-page]')) {
+                console.log('🔗 Navigation clicked:', e.target.getAttribute('data-page') || e.target.getAttribute('href'));
+            }
+        });
+
+        // Debug: Monitor page changes
+        window.addEventListener('hashchange', function() {
+            console.log('🔄 Hash changed to:', window.location.hash);
+        });
+    </script>
+</body>
+</html>
